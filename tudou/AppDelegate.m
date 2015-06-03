@@ -8,6 +8,12 @@
 
 #import "AppDelegate.h"
 
+#import "HomeViewController.h"
+#import "ClassifyViewController.h"
+#import "SubscribeViewController.h"
+#import "DiscoverViewController.h"
+#import "MineViewController.h"
+
 @interface AppDelegate ()
 
 @end
@@ -17,6 +23,59 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    //1.
+    HomeViewController *VC1 = [[HomeViewController alloc] init];
+    UINavigationController *nav1 = [[UINavigationController alloc] initWithRootViewController:VC1];
+    ClassifyViewController *VC2 = [[ClassifyViewController alloc] init];
+    UINavigationController *nav2 = [[UINavigationController alloc] initWithRootViewController:VC2];
+    SubscribeViewController *VC3 = [[SubscribeViewController alloc] init];
+    UINavigationController *nav3 = [[UINavigationController alloc] initWithRootViewController:VC3];
+    DiscoverViewController *VC4 = [[DiscoverViewController alloc] init];
+    UINavigationController *nav4 = [[UINavigationController alloc] initWithRootViewController:VC4];
+    MineViewController *VC5 = [[MineViewController alloc] init];
+    UINavigationController *nav5 = [[UINavigationController alloc] initWithRootViewController:VC5];
+//    VC1.title = @"首页";
+//    VC2.title = @"分类";
+//    VC3.title = @"订阅";
+//    VC4.title = @"发现";
+//    VC5.title = @"我的";
+    //2.
+    NSArray *viewCtrs = @[nav1,nav2,nav3,nav4,nav5];
+    //3.
+    UITabBarController *tabbarCtr = [[UITabBarController alloc] init];
+    //4.
+    [tabbarCtr setViewControllers:viewCtrs animated:YES];
+    //5.
+    self.window.rootViewController = tabbarCtr;
+    
+    //6.
+    UITabBar *tabbar = tabbarCtr.tabBar;
+    UITabBarItem *item1 = [tabbar.items objectAtIndex:0];
+    UITabBarItem *item2 = [tabbar.items objectAtIndex:1];
+    UITabBarItem *item3 = [tabbar.items objectAtIndex:2];
+    UITabBarItem *item4 = [tabbar.items objectAtIndex:3];
+    UITabBarItem *item5 = [tabbar.items objectAtIndex:4];
+    
+    item1.selectedImage = [[UIImage imageNamed:@"home_homepage_selected"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    item1.image = [[UIImage imageNamed:@"home_homepage_notselected"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    item1.imageInsets = UIEdgeInsetsMake(6, 0, -6, 0);
+    item2.selectedImage = [[UIImage imageNamed:@"home_classify_selected"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    item2.image = [[UIImage imageNamed:@"home_classify_notselected"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    item2.imageInsets = UIEdgeInsetsMake(6, 0, -6, 0);
+    item3.selectedImage = [[UIImage imageNamed:@"home_subscribe_selected"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    item3.image = [[UIImage imageNamed:@"home_subscribe"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    item3.imageInsets = UIEdgeInsetsMake(6, 0, -6, 0);
+    item4.selectedImage = [[UIImage imageNamed:@"home_find_selected"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    item4.image = [[UIImage imageNamed:@"home_find_notselected"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    item4.imageInsets = UIEdgeInsetsMake(6, 0, -6, 0);
+    item5.selectedImage = [[UIImage imageNamed:@"home_mine_selected"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    item5.image = [[UIImage imageNamed:@"home_mine_notselected"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    item5.imageInsets = UIEdgeInsetsMake(6, 0, -6, 0);
+    
+    
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    [self.window makeKeyAndVisible];
     return YES;
 }
 

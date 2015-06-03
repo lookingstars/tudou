@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>C9E346AA-2618-4BAF-9232-708F303EA15E</string>
+	<key>IDESourceControlProjectName</key>
+	<string>tudou</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>52847730DA9CA810BEBF1CE89AB809D8E6822FFE</key>
+		<string>https://github.com/lookingstars/tudou.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>tudou.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>52847730DA9CA810BEBF1CE89AB809D8E6822FFE</key>
+		<string>..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/lookingstars/tudou.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>52847730DA9CA810BEBF1CE89AB809D8E6822FFE</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>52847730DA9CA810BEBF1CE89AB809D8E6822FFE</string>
+			<key>IDESourceControlWCCName</key>
+			<string>tudou</string>
+		</dict>
+	</array>
+</dict>
+</plist>
