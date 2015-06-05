@@ -26,6 +26,11 @@ typedef void(^FailureBlock)(NSString *error);
 #pragma mark 获取土豆视频首页
 -(void)getHomeResule:(NSDictionary *)userInfo url:(NSString *)url successBlock:(SuccessBlock)successBlock failureBlock:(FailureBlock)failureBlock;
 
+#pragma mark 获取视频详情页
+-(void)getVideoDetailResule:(NSDictionary *)userInfo url:(NSString *)url successBlock:(SuccessBlock)successBlock failureBlock:(FailureBlock)failureBlock;
+
+#pragma mark 获取分类信息
+-(void)getClassifyResule:(NSDictionary *)userInfo url:(NSString *)url successBlock:(SuccessBlock)successBlock failureBlock:(FailureBlock)failureBlock;
 
 
 @end

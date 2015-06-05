@@ -7,6 +7,7 @@
 //
 
 #import "ClassifyViewController.h"
+#import "NetworkSingleton.h"
 
 @interface ClassifyViewController ()
 
@@ -48,8 +49,24 @@
     UIButton *uploadBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     uploadBtn.frame = CGRectMake(screen_width-90, 30, 22, 22);
     [uploadBtn setImage:[UIImage imageNamed:@"home_upload"] forState:UIControlStateNormal];
+    [uploadBtn addTarget:self action:@selector(OnUploadBtn:) forControlEvents:UIControlEventTouchUpInside];
     [backView addSubview:uploadBtn];
 }
+
+-(void)OnUploadBtn:(UIButton *)sender{
+    [self getData];
+}
+
+-(void)getData{
+    NSString *urlStr = @"http://api.3g.tudou.com/v4_5/recommended_channels?excludeNew=0&guid=7066707c5bdc38af1621eaf94a6fe779&idfa=ACAF9226-F987-417B-A708-C95D482A732D&network=WIFI&operator=%E4%B8%AD%E5%9B%BD%E8%81%94%E9%80%9A_46001&ouid=10099212c9e3829656d4ea61e3858d53253b2f07&pg=1&pid=c0637223f8b69b02&pz=30&vdid=9AFEE982-6F94-4F57-9B33-69523E044CF4&ver=4.9.1";
+    [[NetworkSingleton sharedManager] getClassifyResule:nil url:urlStr successBlock:^(id responseBody){
+        NSLog(@"分类:%@",responseBody);
+        NSMutableArray *array = [responseBody objectForKey:@"results"];
+    } failureBlock:^(NSString *error){
+        NSLog(@"%@",error);
+    }];
+}
+
 
 /*
 #pragma mark - Navigation

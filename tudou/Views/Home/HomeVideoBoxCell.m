@@ -1,19 +1,17 @@
 //
-//  HomeBoxCell.m
+//  HomeVideoBoxCell.m
 //  tudou
 //
-//  Created by jinzelu on 15/6/3.
+//  Created by jinzelu on 15/6/4.
 //  Copyright (c) 2015年 jinzelu. All rights reserved.
 //
 
-#import "HomeBoxCell.h"
+#import "HomeVideoBoxCell.h"
 #import "UIImageView+WebCache.h"
 #import "ImageCardView.h"
 #import "MJExtension.h"
 
-#import "ImageCardView.h"
-
-@interface HomeBoxCell ()<ImageCardDelegate>
+@interface HomeVideoBoxCell ()
 {
     UILabel *_titleLabel;
     UIImageView *_imageView;
@@ -21,17 +19,17 @@
     ImageCardView *_cardView2;
     ImageCardView *_cardView3;
     ImageCardView *_cardView4;
-    
+    ImageCardView *_cardView5;
+    ImageCardView *_cardView6;
 }
 
 @end
 
-@implementation HomeBoxCell
+@implementation HomeVideoBoxCell
 
 -(id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        //
         self.backgroundColor = navigationBarColor;
         [self initViews];
     }
@@ -50,7 +48,7 @@
 
 -(void)initViews{
     //背景
-    UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, 5, screen_width, 40+300)];
+    UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, 5, screen_width, 40+230+230)];
     backView.backgroundColor = [UIColor whiteColor];
     [self addSubview:backView];
     //头
@@ -68,22 +66,20 @@
     lineView.backgroundColor = navigationBarColor;
     [backView addSubview:lineView];
     //图
-    _cardView1 = [[ImageCardView alloc] initWithFrame:CGRectMake(0, 40, (screen_width-5)/2, 150)];
-    _cardView2 = [[ImageCardView alloc] initWithFrame:CGRectMake((screen_width-5)/2, 40, (screen_width-5)/2, 150)];
-    _cardView3 = [[ImageCardView alloc] initWithFrame:CGRectMake(0, 40+150, (screen_width-5)/2, 150)]; 
-    _cardView4 = [[ImageCardView alloc] initWithFrame:CGRectMake((screen_width-5)/2, 40+150, (screen_width-5)/2, 150)];
-    _cardView1.tag = 100;
-    _cardView2.tag = 101;
-    _cardView3.tag = 102;
-    _cardView4.tag = 103;
-    _cardView1.delegate = self;
-    _cardView2.delegate = self;
-    _cardView3.delegate = self;
-    _cardView4.delegate = self;
+    _cardView1 = [[ImageCardView alloc] initWithFrame:CGRectMake(0, 40, (screen_width-5)/3, 230)];
+    _cardView2 = [[ImageCardView alloc] initWithFrame:CGRectMake((screen_width-5)/3, 40, (screen_width-5)/3, 230)];
+    _cardView3 = [[ImageCardView alloc] initWithFrame:CGRectMake((screen_width-5)*2/3, 40, (screen_width-5)/3, 230)];
+    
+    _cardView4 = [[ImageCardView alloc] initWithFrame:CGRectMake(0, 40+230, (screen_width-5)/3, 230)];
+    _cardView5 = [[ImageCardView alloc] initWithFrame:CGRectMake((screen_width-5)/3, 40+230, (screen_width-5)/3, 230)];
+    _cardView6 = [[ImageCardView alloc] initWithFrame:CGRectMake((screen_width-5)*2/3, 40+230, (screen_width-5)/3, 230)];
+    
     [backView addSubview:_cardView1];
     [backView addSubview:_cardView2];
     [backView addSubview:_cardView3];
     [backView addSubview:_cardView4];
+    [backView addSubview:_cardView5];
+    [backView addSubview:_cardView6];
 }
 
 -(void)setBoxes:(BoxesModel *)boxes{
@@ -93,18 +89,15 @@
     VideosModel *video2 = [VideosModel objectWithKeyValues:boxes.videos[1]];
     VideosModel *video3 = [VideosModel objectWithKeyValues:boxes.videos[2]];
     VideosModel *video4 = [VideosModel objectWithKeyValues:boxes.videos[3]];
-//    [_cardView1 setVideo:video1];
-    _cardView1.video = video1;
+    VideosModel *video5 = [VideosModel objectWithKeyValues:boxes.videos[4]];
+    VideosModel *video6 = [VideosModel objectWithKeyValues:boxes.videos[5]];
+    [_cardView1 setVideo:video1];
     [_cardView2 setVideo:video2];
     [_cardView3 setVideo:video3];
     [_cardView4 setVideo:video4];
+    [_cardView5 setVideo:video5];
+    [_cardView6 setVideo:video6];
+    
 }
-
-#pragma mark - ImageCardDelegate
--(void)didSelectImageCard:(ImageCardView *)imageCard video:(VideosModel *)video{
-    NSLog(@"imageCard.tag:%ld",imageCard.tag);
-    [self.delegate  didSelectHomeBox:video];
-}
-
 
 @end

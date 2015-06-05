@@ -36,6 +36,10 @@
         self.yaofengLabel.textColor = [UIColor whiteColor];
         //        self.yaofengLabel.text = video.yaofeng;
         [self addSubview:self.yaofengLabel];
+        
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(OnTapImageCard:)];
+        [self addGestureRecognizer:tap];
+        
     }
     return self;
 }
@@ -70,10 +74,30 @@
 }
 
 -(void)setVideo:(VideosModel *)video{
+    _video = video;//这里不能用self.video,只能用_video
     [self.imageView sd_setImageWithURL:[NSURL URLWithString:video.small_img] placeholderImage:[UIImage imageNamed:@"tudoulogo"]];
     self.titleLabel.text = video.title;
-    self.pvLabel.text = video.pv;
-    self.yaofengLabel.text = video.yaofeng;
+    if([video.type isEqualToString:@"playlist"]){
+        self.pvLabel.text = video.pv;
+        if ([video.yaofeng isEqualToString:@""]) {
+            self.yaofengLabel.text = video.stripe_b_r;
+        }else{
+            self.yaofengLabel.text = video.yaofeng;
+        }
+    }else{
+        if ([video.short_desc isEqualToString:@""]) {
+            self.pvLabel.text = video.pv;
+        }else{
+            self.pvLabel.text = video.short_desc;
+        }        
+        self.yaofengLabel.text = video.stripe_b_r;
+    }
+    
+}
+
+-(void)OnTapImageCard:(UITapGestureRecognizer *)sender{
+    NSLog(@"video==%@",self.video);
+    [self.delegate didSelectImageCard:self video:self.video];
 }
 
 

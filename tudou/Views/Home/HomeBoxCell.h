@@ -8,9 +8,20 @@
 
 #import <UIKit/UIKit.h>
 #import "BoxesModel.h"
+#import "VideosModel.h"
+
+@class HomeBoxCell;
+
+@protocol HomeBoxDelegate <NSObject>
+
+@optional
+-(void)didSelectHomeBox:(VideosModel *)video;
+
+@end
 
 @interface HomeBoxCell : UITableViewCell
 
 @property(nonatomic, strong) BoxesModel *boxes;
+@property(nonatomic, assign) id<HomeBoxDelegate> delegate;
 
 @end

@@ -14,11 +14,13 @@
 #import "BoxesModel.h"
 #import "VideosModel.h"
 #import "BannerModel.h"
+#import "VideoDetailViewController.h"
 
 #import "ImageScrollCell.h"
 #import "HomeBoxCell.h"
+#import "HomeVideoBoxCell.h"
 
-@interface HomeViewController ()<UITableViewDataSource,UITableViewDelegate,ImageScrollViewDelegate>
+@interface HomeViewController ()<UITableViewDataSource,UITableViewDelegate,ImageScrollViewDelegate,HomeBoxDelegate>
 {
     NSMutableArray *_dataSource;
     NSMutableArray *_boxesSource;
@@ -76,6 +78,14 @@
     [uploadBtn setImage:[UIImage imageNamed:@"home_upload"] forState:UIControlStateNormal];
     [uploadBtn addTarget:self action:@selector(OnUploadBtn:) forControlEvents:UIControlEventTouchUpInside];
     [backView addSubview:uploadBtn];
+    
+    //
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(screen_width/2-50, 30, 120, 30)];
+    titleLabel.font = [UIFont systemFontOfSize:14];
+    titleLabel.text = @"钻石会员尊享版";
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    titleLabel.textColor = [UIColor whiteColor];
+    [backView addSubview:titleLabel];
 }
 
 -(void)initTableView{
@@ -192,15 +202,30 @@
         
         return cell;
     }else{
-        static NSString *cellIndentifier1 = @"cardCell1";
-        HomeBoxCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIndentifier1];
-        if (cell == nil) {
-            cell = [[HomeBoxCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier1];
+        BoxesModel *box = _boxesSource[indexPath.row-1];
+        if ([box.display_type intValue] == 1) {
+            static NSString *cellIndentifier1 = @"cardCell1";
+            HomeBoxCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIndentifier1];
+            if (cell == nil) {
+                cell = [[HomeBoxCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier1];
+            }
+            cell.delegate = self;
+            [cell setBoxes:_boxesSource[indexPath.row-1]];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            return cell;
+        }else if([box.display_type intValue] == 2){
+            static NSString *cellIndentifier2 = @"cardCell2";
+            HomeVideoBoxCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIndentifier2];
+            if(cell == nil){
+                cell = [[HomeVideoBoxCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier2];
+            }
+            [cell setBoxes:box];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            return cell;
+        }else{
+            return nil;
         }
         
-        [cell setBoxes:_boxesSource[indexPath.row-1]];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        return cell;
     }
 }
 
@@ -212,6 +237,14 @@
 #pragma mark - ImageScrollViewDelegate
 -(void)didSelectImageAtIndex:(NSInteger)index{
     
+}
+
+#pragma mark - HomeBoxDelegate
+-(void)didSelectHomeBox:(VideosModel *)video{
+    NSLog(@"homebox video:%@",video);
+    VideoDetailViewController *videoVC = [[VideoDetailViewController alloc] init];
+    videoVC.iid = video.iid;
+    [self.navigationController pushViewController:videoVC animated:YES];
 }
 /*
 #pragma mark - Navigation

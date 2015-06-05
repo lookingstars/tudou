@@ -9,12 +9,23 @@
 #import <UIKit/UIKit.h>
 #import "VideosModel.h"
 
+@class ImageCardView;
+
+@protocol ImageCardDelegate <NSObject>
+
+@optional
+-(void)didSelectImageCard:(ImageCardView *)imageCard video:(VideosModel *)video;
+
+@end
+
 @interface ImageCardView : UIView
 
 @property(nonatomic, strong) UIImageView *imageView;
 @property(nonatomic, strong) UILabel *titleLabel;
 @property(nonatomic, strong) UILabel *pvLabel;
 @property(nonatomic, strong) UILabel *yaofengLabel;
+
+@property(nonatomic, assign) id<ImageCardDelegate> delegate;
 
 -(id)initWithFrame:(CGRect)frame video:(VideosModel *)video;
 
