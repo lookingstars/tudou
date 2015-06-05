@@ -75,7 +75,7 @@
 
 -(void)setVideo:(VideosModel *)video{
     _video = video;//这里不能用self.video,只能用_video
-    [self.imageView sd_setImageWithURL:[NSURL URLWithString:video.small_img] placeholderImage:[UIImage imageNamed:@"tudoulogo"]];
+    [self.imageView sd_setImageWithURL:[NSURL URLWithString:video.small_img] placeholderImage:[UIImage imageNamed:@"rec_holder"]];
     self.titleLabel.text = video.title;
     if([video.type isEqualToString:@"playlist"]){
         self.pvLabel.text = video.pv;

@@ -32,5 +32,8 @@ typedef void(^FailureBlock)(NSString *error);
 #pragma mark 获取分类信息
 -(void)getClassifyResule:(NSDictionary *)userInfo url:(NSString *)url successBlock:(SuccessBlock)successBlock failureBlock:(FailureBlock)failureBlock;
 
+#pragma mark 获取订阅信息
+-(void)getSubScribeResule:(NSDictionary *)userInfo url:(NSString *)url successBlock:(SuccessBlock)successBlock failureBlock:(FailureBlock)failureBlock;
+
 
 @end

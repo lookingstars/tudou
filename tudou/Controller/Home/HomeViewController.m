@@ -126,7 +126,7 @@
 -(void)getHomeData{
     NSString *url = @"http://api.3g.tudou.com/v4/home?guid=7066707c5bdc38af1621eaf94a6fe779&idfa=ACAF9226-F987-417B-A708-C95D482A732D&ios=1&network=WIFI&operator=%E4%B8%AD%E5%9B%BD%E8%81%94%E9%80%9A_46001&ouid=10099212c9e3829656d4ea61e3858d53253b2f07&pg=1&pid=c0637223f8b69b02&pz=30&show_url=1&vdid=9AFEE982-6F94-4F57-9B33-69523E044CF4&ver=4.9.1";
     [[NetworkSingleton sharedManager] getHomeResule:nil url:url successBlock:^(id responseBody){
-        NSLog(@"成功");
+        NSLog(@"首页 成功");
         HomeModel *homeModel = [HomeModel objectWithKeyValues:responseBody];
         NSMutableArray *boxesArray = [[NSMutableArray alloc] init];
         NSMutableArray *bannerArray = [[NSMutableArray alloc] init];
@@ -174,15 +174,18 @@
 //
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     NSLog(@"总行数：%ld",_boxesSource.count+_bannerSource.count);
-    return _boxesSource.count+1;
-//    return 1;
+    if(_bannerSource.count>0){
+        return _boxesSource.count+1;
+    }else{
+        return 0;
+    }
+    
 }
 //
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == 0) {
         return 180;
     }else{
-        NSLog(@"%ld",indexPath.row-1);
         CGFloat height = ((BoxesModel *)_boxesSource[indexPath.row-1]).height;
         return height;
     }
