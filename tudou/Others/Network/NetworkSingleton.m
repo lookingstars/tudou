@@ -76,7 +76,17 @@
     }];
 }
 
-
+#pragma mark 获取推荐信息
+-(void)getRecommendResule:(NSDictionary *)userInfo url:(NSString *)url successBlock:(SuccessBlock)successBlock failureBlock:(FailureBlock)failureBlock;{
+    AFHTTPRequestOperationManager *manager = [self baseHtppRequest];
+    
+    NSString *urlStr = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    [manager GET:urlStr parameters:userInfo success:^(AFHTTPRequestOperation *operation, id responseObject){
+        successBlock(responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error){
+        failureBlock(@"网络连接失败");
+    }];
+}
 
 
 

@@ -13,6 +13,9 @@
 #import "VideoDetailModel.h"
 #import "VideoInfoCell.h"
 
+#import "RecommendModel.h"
+#import "RecommendCell.h"
+
 
 #define VIDEO_URL @"http://www.tudou.com/programs/view/html5embed.action?code="
 
@@ -24,6 +27,7 @@
     UIButton *_backBtn;
     
     UITableView *_infoTableView;
+    NSMutableArray *_recommendArray;
 }
 
 @end
@@ -43,6 +47,7 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
     _videoDM = [[VideoDetailModel alloc] init];
+    _recommendArray = [[NSMutableArray alloc] init];
     
     NSLog(@"宽度：%f",self.view.frame.size.width);
     
@@ -55,6 +60,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
 //        [self initJZPlayer];
 //        [self initWebView];
+        [self getRecommendData];
     });
 }
 
@@ -79,8 +85,6 @@
 -(void)initWebView{
     _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, screen_width, 220)];
     [self.view addSubview:_webView];
-    
-//    [_webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://www.tudou.com/programs/view/html5embed.action?code=j787D24B6kU"]]];
 }
 
 -(void)initInfoTableView{
@@ -111,7 +115,7 @@
     NSLog(@"urlStr:%@",urlStr);
     
     [[NetworkSingleton sharedManager] getVideoDetailResule:nil url:urlStr successBlock:^(id responseBody){
-//        NSLog(@"视频详情：%@",responseBody);
+        NSLog(@"视频详情查询成功");
         VideoDetailModel *videoDM = [VideoDetailModel objectWithKeyValues:[responseBody objectForKey:@"detail"]];
         _videoDM = videoDM;
         NSString *urlStr = [NSString stringWithFormat:@"%@%@",VIDEO_URL,_videoDM.iid];
@@ -120,6 +124,42 @@
     } failureBlock:^(NSString *error){
         NSLog(@"%@",error);
     }];
+}
+
+-(void)getRecommendData{
+    //http://rec.api.3g.tudou.com/v4/recommend/video?count=20&filterpay=0&guid=7066707c5bdc38af1621eaf94a6fe779&idfa=ACAF9226-F987-417B-A708-C95D482A732D&itemCode=Ed6qv_yOUhc&network=WIFI&operator=%E4%B8%AD%E5%9B%BD%E8%81%94%E9%80%9A_46001&ouid=10099212c9e3829656d4ea61e3858d53253b2f07&pg=1&pid=c0637223f8b69b02&pz=30&vdid=9AFEE982-6F94-4F57-9B33-69523E044CF4&ver=4.9.1
+    NSString *urlStr = [NSString stringWithFormat:@"http://rec.api.3g.tudou.com/v4/recommend/video?count=20&filterpay=0&guid=7066707c5bdc38af1621eaf94a6fe779&idfa=ACAF9226-F987-417B-A708-C95D482A732D&itemCode=%@&network=WIFI&ouid=10099212c9e3829656d4ea61e3858d53253b2f07&pg=1&pid=c0637223f8b69b02&pz=30&vdid=9AFEE982-6F94-4F57-9B33-69523E044CF4&ver=4.9.1",self.iid,OPERATOR];
+    [[NetworkSingleton sharedManager] getRecommendResule:nil url:urlStr successBlock:^(id responseBody){
+        NSLog(@"推荐查询成功");
+        NSMutableArray *resultArray = [responseBody objectForKey:@"results"];
+        for (int i = 0; i < resultArray.count; i++) {
+            RecommendModel *recommendM = [RecommendModel objectWithKeyValues:resultArray[i]];
+            recommendM.time = [self convertTime:[recommendM.duration integerValue]];
+            [_recommendArray addObject:recommendM];
+        }
+        
+        [_infoTableView reloadData];
+    } failureBlock:^(NSString *error){
+        NSLog(@"%@",error);
+    }];
+}
+
+-(NSString *)convertTime:(NSInteger)time{
+    Float64 currentSeconds = time;
+    int mins = currentSeconds/60.0;
+    int hours = mins / 60.0f;
+    int secs = fmodf(currentSeconds, 60.0);
+    mins = fmodf(mins, 60.0f);
+    
+    NSString *hoursString = hours < 10 ? [NSString stringWithFormat:@"0%d", hours] : [NSString stringWithFormat:@"%d", hours];
+    NSString *minsString = mins < 10 ? [NSString stringWithFormat:@"0%d", mins] : [NSString stringWithFormat:@"%d", mins];
+    NSString *secsString = secs < 10 ? [NSString stringWithFormat:@"0%d", secs] : [NSString stringWithFormat:@"%d", secs];
+    
+    if (hours == 0) {
+        return [NSString stringWithFormat:@"%@:%@",minsString, secsString];
+    }else{
+        return [NSString stringWithFormat:@"%@:%@:%@", hoursString,minsString, secsString];
+    }
 }
 
 -(void)OnBackBtn:(UIButton *)sender{
@@ -136,25 +176,44 @@
 #pragma mark - UITableViewDataSource
 //
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 1;
+    return 1+_recommendArray.count;
 }
 //
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 160;
+    if (indexPath.row == 0) {
+        return 160;
+    }else{
+        return 60;
+    }
+    
 }
 //
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString *cellIndentifier = @"videoCell1";
-    VideoInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIndentifier];
-    if (cell == nil) {
-        cell = [[VideoInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier];
+    if (indexPath.row == 0) {
+        static NSString *cellIndentifier = @"videoCell1";
+        VideoInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIndentifier];
+        if (cell == nil) {
+            cell = [[VideoInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier];
+        }
+        [cell setVideoModel:_videoDM];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        //    cell.backgroundColor = [UIColor clearColor];
+        //    cell.contentView.backgroundColor = [UIColor clearColor];
+        
+        return cell;
+    }else{
+        static NSString *cellIndentifier2 = @"recommendCell";
+        RecommendCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIndentifier2];
+        if (cell == nil) {
+            cell = [[RecommendCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier2];
+        }
+        
+        RecommendModel *recommendM = (RecommendModel *)_recommendArray[indexPath.row-1];
+        [cell setRecommendM:recommendM];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        return cell;
     }
-    [cell setVideoModel:_videoDM];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//    cell.backgroundColor = [UIColor clearColor];
-//    cell.contentView.backgroundColor = [UIColor clearColor];
-    
-    return cell;
 }
 
 #pragma mark - UITableViewDelegate

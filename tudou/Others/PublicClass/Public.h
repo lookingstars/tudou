@@ -17,6 +17,7 @@
 #define RGB(r, g, b)                        RGBA(r, g, b, 1.0f)
 
 #define navigationBarColor RGB(251, 117, 44)
+#define separaterColor RGB(200, 199, 204)
 
 
 // 3.是否为4inch

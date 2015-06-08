@@ -118,6 +118,8 @@
 		E3D8147F1B219453005689B8 /* rec_holder@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E3D8147C1B219453005689B8 /* rec_holder@3x.png */; };
 		E3D814831B25424B005689B8 /* VideoInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E3D814821B25424B005689B8 /* VideoInfoCell.m */; };
 		E3D814851B256DB6005689B8 /* namei.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E3D814841B256DB6005689B8 /* namei.jpg */; };
+		E3D814881B25982C005689B8 /* RecommendModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E3D814871B25982C005689B8 /* RecommendModel.m */; };
+		E3D8148B1B259A92005689B8 /* RecommendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E3D8148A1B259A92005689B8 /* RecommendCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -278,6 +280,10 @@
 		E3D814811B25424B005689B8 /* VideoInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoInfoCell.h; sourceTree = "<group>"; };
 		E3D814821B25424B005689B8 /* VideoInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoInfoCell.m; sourceTree = "<group>"; };
 		E3D814841B256DB6005689B8 /* namei.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = namei.jpg; sourceTree = "<group>"; };
+		E3D814861B25982C005689B8 /* RecommendModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecommendModel.h; sourceTree = "<group>"; };
+		E3D814871B25982C005689B8 /* RecommendModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendModel.m; sourceTree = "<group>"; };
+		E3D814891B259A92005689B8 /* RecommendCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecommendCell.h; sourceTree = "<group>"; };
+		E3D8148A1B259A92005689B8 /* RecommendCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -345,6 +351,8 @@
 				E336D3271B1EE4B400FF4F77 /* BannerModel.m */,
 				E336D35E1B202EE000FF4F77 /* VideoDetailModel.h */,
 				E336D35F1B202EE000FF4F77 /* VideoDetailModel.m */,
+				E3D814861B25982C005689B8 /* RecommendModel.h */,
+				E3D814871B25982C005689B8 /* RecommendModel.m */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -768,6 +776,8 @@
 			children = (
 				E3D814811B25424B005689B8 /* VideoInfoCell.h */,
 				E3D814821B25424B005689B8 /* VideoInfoCell.m */,
+				E3D814891B259A92005689B8 /* RecommendCell.h */,
+				E3D8148A1B259A92005689B8 /* RecommendCell.m */,
 			);
 			path = video;
 			sourceTree = "<group>";
@@ -987,6 +997,7 @@
 			files = (
 				E3D8145E1B217A1E005689B8 /* SubImageScrollView.m in Sources */,
 				E336D3391B1FE50700FF4F77 /* HomeVideoBoxCell.m in Sources */,
+				E3D8148B1B259A92005689B8 /* RecommendCell.m in Sources */,
 				E3D814611B217F67005689B8 /* SubscribeCell.m in Sources */,
 				E336D31F1B1EE1BC00FF4F77 /* HomeModel.m in Sources */,
 				E336D3221B1EE27500FF4F77 /* BoxesModel.m in Sources */,
@@ -994,6 +1005,7 @@
 				E36238C21B1E930B00570A4C /* ViewController.m in Sources */,
 				E3D814581B217659005689B8 /* SubscribeCardView.m in Sources */,
 				E336D3251B1EE37C00FF4F77 /* VideosModel.m in Sources */,
+				E3D814881B25982C005689B8 /* RecommendModel.m in Sources */,
 				E336D34F1B2004B900FF4F77 /* JZVideoPlayerView.m in Sources */,
 				E336D32D1B1EF63600FF4F77 /* ImageScrollCell.m in Sources */,
 				E36238F21B1E99CB00570A4C /* ClassifyViewController.m in Sources */,
