@@ -10,7 +10,7 @@
 #import "SubscribeCardView.h"
 #import "SubItemModel.h"
 
-@interface SubImageScrollView()
+@interface SubImageScrollView()<SubscribeCardDelegate>
 {
     
 }
@@ -36,17 +36,25 @@
             SubscribeCardView *card = [[SubscribeCardView alloc] initWithFrame:CGRectMake(cardWidth*i, 0, cardWidth, frame.size.height)];
             card.tag = 20+i;
             [self.scrollView addSubview:card];
+            card.delegate = self;
         }
     }
     return self;
 }
 
 -(void)setDataArray:(NSArray *)dataArray{
+    _dataArray = dataArray;
     for (int i = 0; i < 3; i++) {
         SubItemModel *item = (SubItemModel *)dataArray[i];
         SubscribeCardView *card = (SubscribeCardView *)[self.scrollView viewWithTag:20+i];
         [card setSubItem:item];
     }
+}
+
+#pragma mark - SubscribeCardDelegate
+-(void)didSelectSubImageCard:(SubscribeCardView *)subImageCard subItem:(SubItemModel *)subItem{
+    NSLog(@"subScrollView=====select");
+    [self.delegate didSelectSubScrollView:self subItem:subItem];
 }
 
 /*

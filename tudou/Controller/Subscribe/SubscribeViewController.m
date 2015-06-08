@@ -11,8 +11,11 @@
 #import "MJExtension.h"
 #import "SubscribeModel.h"
 #import "SubscribeCell.h"
+#import "MJRefresh.h"
 
-@interface SubscribeViewController ()<UITableViewDataSource,UITableViewDelegate>
+#import "VideoDetailViewController.h"
+
+@interface SubscribeViewController ()<UITableViewDataSource,UITableViewDelegate,SubscribeCellDelegate>
 {
     NSMutableArray *_dataSource;
 }
@@ -31,7 +34,7 @@
     [self setNav];
     [self initTableview];
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self getData];
+//        [self getData];
     });
 }
 
@@ -59,6 +62,37 @@
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.tableView];
+    
+    [self setupRefresh];
+}
+
+-(void)setupRefresh{
+    //1.下拉刷新
+    [self.tableView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(headerRefreshing)];
+    //2.进入自动刷新
+    [self.tableView.header beginRefreshing];
+    //3.上拉刷新
+    //    [self.tableView addFooterWithTarget:self action:@selector(footerRefreshing)];
+//    [self.tableView addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(footerRefreshing)];
+    
+    //设置文字(也可不设置,默认的文字在MJRefreshConst中修改))
+    [self.tableView.header setTitle:@"下拉刷新" forState:MJRefreshHeaderStateIdle];
+    [self.tableView.header setTitle:@"松开刷新" forState:MJRefreshHeaderStatePulling];
+    [self.tableView.header setTitle:@"刷新中" forState:MJRefreshHeaderStateRefreshing];
+    
+//    [self.tableView.footer setTitle:@"点击或上拉加载更多" forState:MJRefreshFooterStateIdle];
+//    [self.tableView.footer setTitle:@"加载中..." forState:MJRefreshFooterStateRefreshing];
+//    [self.tableView.footer setTitle:@"没有更多" forState:MJRefreshFooterStateNoMoreData];
+}
+
+-(void)headerRefreshing{
+    [self getData];
+}
+#pragma mark 刷新tableview
+-(void)reloadTable{
+    //    [self.tableView reloadData];
+    [self.tableView.header endRefreshing];
+//    [self.tableView.footer endRefreshing];
 }
 
 -(void)getData{
@@ -72,8 +106,10 @@
             [_dataSource addObject:subM];
             
             [self.tableView reloadData];
+            [self performSelectorOnMainThread:@selector(reloadTable) withObject:nil waitUntilDone:YES];
         }
     } failureBlock:^(NSString *error){
+        [self performSelectorOnMainThread:@selector(reloadTable) withObject:nil waitUntilDone:YES];
         NSLog(@"%@",error);
     }];
 }
@@ -96,6 +132,7 @@
     
     SubscribeModel *subM = [_dataSource objectAtIndex:indexPath.row];
     
+    cell.delegate = self;
     [cell setSubscribeM:subM];
     
     
@@ -104,6 +141,17 @@
 
 
 #pragma mark - UITableViewDelegate
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSLog(@"didselect");
+}
+
+#pragma mark - SubscribeCellDelegate
+-(void)didSelectSubscribeCell:(SubscribeCell *)subCell subItem:(SubItemModel *)subItem{
+    NSLog(@"delegate  didselect");
+    VideoDetailViewController *videoVC = [[VideoDetailViewController alloc] init];
+    videoVC.iid = subItem.code;
+    [self.navigationController pushViewController:videoVC animated:YES];
+}
 
 
 /*

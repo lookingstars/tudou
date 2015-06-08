@@ -70,6 +70,7 @@
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, screen_width, screen_height-64-49) style:UITableViewStylePlain];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+//    self.tableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"namei.jpg"]];
     [self.view addSubview:self.tableView];
 }
 
@@ -129,6 +130,8 @@
     [newImage sd_setImageWithURL:[NSURL URLWithString:classM.image_at_bottom] placeholderImage:[UIImage imageNamed:@"home_GaoXiao"]];
 //    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:classM.image_at_bottom] placeholderImage:[UIImage imageNamed:@"home_GaoXiao"]];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    cell.backgroundColor = [UIColor clearColor];
     return cell;
 }
 

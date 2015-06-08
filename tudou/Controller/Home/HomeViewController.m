@@ -19,6 +19,7 @@
 #import "ImageScrollCell.h"
 #import "HomeBoxCell.h"
 #import "HomeVideoBoxCell.h"
+#import "MJRefresh.h"
 
 @interface HomeViewController ()<UITableViewDataSource,UITableViewDelegate,ImageScrollViewDelegate,HomeBoxDelegate>
 {
@@ -46,7 +47,7 @@
     [self initTableView];
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_async(queue, ^{
-        [self getHomeData];
+//        [self getHomeData];
     });
 }
 
@@ -94,6 +95,37 @@
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.tableView];
+    
+    [self setupRefresh];
+}
+
+-(void)setupRefresh{
+    //1.下拉刷新
+    [self.tableView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(headerRefreshing)];
+    //2.进入自动刷新
+    [self.tableView.header beginRefreshing];
+    //3.上拉刷新
+    //    [self.tableView addFooterWithTarget:self action:@selector(footerRefreshing)];
+    //    [self.tableView addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(footerRefreshing)];
+    
+    //设置文字(也可不设置,默认的文字在MJRefreshConst中修改))
+    [self.tableView.header setTitle:@"下拉刷新" forState:MJRefreshHeaderStateIdle];
+    [self.tableView.header setTitle:@"松开刷新" forState:MJRefreshHeaderStatePulling];
+    [self.tableView.header setTitle:@"刷新中" forState:MJRefreshHeaderStateRefreshing];
+    
+    //    [self.tableView.footer setTitle:@"点击或上拉加载更多" forState:MJRefreshFooterStateIdle];
+    //    [self.tableView.footer setTitle:@"加载中..." forState:MJRefreshFooterStateRefreshing];
+    //    [self.tableView.footer setTitle:@"没有更多" forState:MJRefreshFooterStateNoMoreData];
+}
+
+-(void)headerRefreshing{
+    [self getHomeData];
+}
+#pragma mark 刷新tableview
+-(void)reloadTable{
+    //    [self.tableView reloadData];
+    [self.tableView.header endRefreshing];
+    //    [self.tableView.footer endRefreshing];
 }
 
 -(void)OnUploadBtn:(UIButton *)sender{
@@ -127,6 +159,7 @@
     NSString *url = @"http://api.3g.tudou.com/v4/home?guid=7066707c5bdc38af1621eaf94a6fe779&idfa=ACAF9226-F987-417B-A708-C95D482A732D&ios=1&network=WIFI&operator=%E4%B8%AD%E5%9B%BD%E8%81%94%E9%80%9A_46001&ouid=10099212c9e3829656d4ea61e3858d53253b2f07&pg=1&pid=c0637223f8b69b02&pz=30&show_url=1&vdid=9AFEE982-6F94-4F57-9B33-69523E044CF4&ver=4.9.1";
     [[NetworkSingleton sharedManager] getHomeResule:nil url:url successBlock:^(id responseBody){
         NSLog(@"首页 成功");
+        [_headImageArray removeAllObjects];
         HomeModel *homeModel = [HomeModel objectWithKeyValues:responseBody];
         NSMutableArray *boxesArray = [[NSMutableArray alloc] init];
         NSMutableArray *bannerArray = [[NSMutableArray alloc] init];
@@ -144,7 +177,9 @@
         _boxesSource = boxesArray;
         _bannerSource = bannerArray;
         [self.tableView reloadData];
+        [self performSelectorOnMainThread:@selector(reloadTable) withObject:nil waitUntilDone:YES];
     } failureBlock:^(NSString *error){
+        [self performSelectorOnMainThread:@selector(reloadTable) withObject:nil waitUntilDone:YES];
         NSLog(@"%@",error);
     }];
 }

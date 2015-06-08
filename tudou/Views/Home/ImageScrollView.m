@@ -28,7 +28,7 @@
         self.scrollView.delegate = self;
         self.scrollView.showsHorizontalScrollIndicator = NO;
         //添加图片
-        for(int i = 0 ; i < 6; i++){
+        for(int i = 0 ; i < 10; i++){
             UIImageView *imageView = [[UIImageView alloc] init];
             imageView.frame = CGRectMake(i*screen_width, 0, screen_width, frame.size.height);
             imageView.tag = i+10;
@@ -65,6 +65,7 @@
 //}
 -(void)setImageArray:(NSArray *)imageArray{
     self.scrollView.contentSize = CGSizeMake(imageArray.count*screen_width, self.frame.size.height);
+    self.pageControl.numberOfPages = imageArray.count;
     //添加图片
     for(int i = 0 ; i < imageArray.count; i++){
         UIImageView *imageView = (UIImageView *)[self.scrollView viewWithTag:i+10];

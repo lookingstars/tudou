@@ -24,6 +24,9 @@
         self.titleLabel.textColor = [UIColor blackColor];
         self.titleLabel.lineBreakMode = UILineBreakModeTailTruncation;
         [self addSubview:self.titleLabel];
+        
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(OnTapImageCard:)];
+        [self addGestureRecognizer:tap];
     }
     return self;
 }
@@ -32,6 +35,11 @@
     _subItem = subItem;
     [self.imageView sd_setImageWithURL:[NSURL URLWithString:subItem.picurl] placeholderImage:[UIImage imageNamed:@"rec_holder"]];
     self.titleLabel.text = subItem.title;
+}
+
+-(void)OnTapImageCard:(UITapGestureRecognizer *)sender{
+    NSLog(@"SubCard====select");
+    [self.delegate didSelectSubImageCard:self subItem:self.subItem];
 }
 
 

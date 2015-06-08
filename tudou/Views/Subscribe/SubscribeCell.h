@@ -8,8 +8,21 @@
 
 #import <UIKit/UIKit.h>
 #import "SubscribeModel.h"
+#import "SubItemModel.h"
+
+
+@class SubscribeCell;
+
+@protocol SubscribeCellDelegate <NSObject>
+
+@optional
+-(void)didSelectSubscribeCell:(SubscribeCell *)subCell subItem:(SubItemModel *)subItem;
+
+@end
 
 @interface SubscribeCell : UITableViewCell
+
+@property(nonatomic, assign) id<SubscribeCellDelegate> delegate;
 
 @property(nonatomic, strong) SubscribeModel *subscribeM;
 

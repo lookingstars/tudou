@@ -11,16 +11,19 @@
 #import "NetworkSingleton.h"
 #import "MJExtension.h"
 #import "VideoDetailModel.h"
+#import "VideoInfoCell.h"
 
 
 #define VIDEO_URL @"http://www.tudou.com/programs/view/html5embed.action?code="
 
-@interface VideoDetailViewController ()<JZPlayerViewDelegate>
+@interface VideoDetailViewController ()<JZPlayerViewDelegate,UITableViewDataSource,UITableViewDelegate>
 {
     JZVideoPlayerView *_jzPlayer;
     VideoDetailModel *_videoDM;
     UIWebView *_webView;
     UIButton *_backBtn;
+    
+    UITableView *_infoTableView;
 }
 
 @end
@@ -40,11 +43,14 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
     _videoDM = [[VideoDetailModel alloc] init];
-
+    
+    NSLog(@"宽度：%f",self.view.frame.size.width);
     
     [self initWebView];
     [self setNav];
     [self getVideoDetailData];
+    
+    [self initInfoTableView];
 
     dispatch_async(dispatch_get_main_queue(), ^{
 //        [self initJZPlayer];
@@ -77,6 +83,17 @@
 //    [_webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://www.tudou.com/programs/view/html5embed.action?code=j787D24B6kU"]]];
 }
 
+-(void)initInfoTableView{
+    _infoTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 220, screen_width, screen_height-220) style:UITableViewStylePlain];
+    _infoTableView.delegate = self;
+    _infoTableView.dataSource = self;
+    _infoTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+//    _infoTableView.backgroundColor = [UIColor redColor];
+//    _infoTableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"namei.jpg"]];
+    
+    [self.view addSubview:_infoTableView];
+}
+
 //视频链接不对
 -(void)initJZPlayer{
     //http://www.tudou.com/programs/view/html5embed.action?code=j787D24B6kU
@@ -99,6 +116,7 @@
         _videoDM = videoDM;
         NSString *urlStr = [NSString stringWithFormat:@"%@%@",VIDEO_URL,_videoDM.iid];
         [_webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:urlStr]]];
+        [_infoTableView reloadData];
     } failureBlock:^(NSString *error){
         NSLog(@"%@",error);
     }];
@@ -108,10 +126,38 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+
+
 #pragma mark - JZPlayerViewDelegate
 -(void)JZOnBackBtn{
     [self.navigationController popViewControllerAnimated:YES];
 }
+
+#pragma mark - UITableViewDataSource
+//
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 1;
+}
+//
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 160;
+}
+//
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    static NSString *cellIndentifier = @"videoCell1";
+    VideoInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIndentifier];
+    if (cell == nil) {
+        cell = [[VideoInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier];
+    }
+    [cell setVideoModel:_videoDM];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//    cell.backgroundColor = [UIColor clearColor];
+//    cell.contentView.backgroundColor = [UIColor clearColor];
+    
+    return cell;
+}
+
+#pragma mark - UITableViewDelegate
 
 /*
 #pragma mark - Navigation

@@ -12,7 +12,7 @@
 #import "MJExtension.h"
 #import "UIImageView+WebCache.h"
 
-@interface SubscribeCell ()
+@interface SubscribeCell ()<SubImageScrollDelegate>
 {
     NSMutableArray *_items;
     SubImageScrollView *_scrollV;
@@ -75,6 +75,7 @@
     
     //
     _scrollV = [[SubImageScrollView alloc] initWithFrame:CGRectMake(0, 55, screen_width, 155)];
+    _scrollV.delegate = self;
     [backview addSubview:_scrollV];
     
 }
@@ -92,5 +93,12 @@
     _subedLabel.text = [NSString stringWithFormat:@"订阅 %@", subscribeM.subed_count];
     [_scrollV setDataArray:_items];
 }
+
+#pragma mark - SubImageScrollDelegate
+-(void)didSelectSubScrollView:(SubImageScrollView *)subScrollView subItem:(SubItemModel *)subItem{
+    NSLog(@"");
+    [self.delegate didSelectSubscribeCell:self subItem:subItem];
+}
+
 
 @end
