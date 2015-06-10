@@ -15,11 +15,12 @@
 
 #import "RecommendModel.h"
 #import "RecommendCell.h"
+#import "ChannelViewController.h"
 
 
 #define VIDEO_URL @"http://www.tudou.com/programs/view/html5embed.action?code="
 
-@interface VideoDetailViewController ()<JZPlayerViewDelegate,UITableViewDataSource,UITableViewDelegate>
+@interface VideoDetailViewController ()<JZPlayerViewDelegate,UITableViewDataSource,UITableViewDelegate,VideoInfoDelegate>
 {
     JZVideoPlayerView *_jzPlayer;
     VideoDetailModel *_videoDM;
@@ -67,6 +68,10 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 }
 
 -(void)setNav{
@@ -131,6 +136,7 @@
     NSString *urlStr = [NSString stringWithFormat:@"http://rec.api.3g.tudou.com/v4/recommend/video?count=20&filterpay=0&guid=7066707c5bdc38af1621eaf94a6fe779&idfa=ACAF9226-F987-417B-A708-C95D482A732D&itemCode=%@&network=WIFI&ouid=10099212c9e3829656d4ea61e3858d53253b2f07&pg=1&pid=c0637223f8b69b02&pz=30&vdid=9AFEE982-6F94-4F57-9B33-69523E044CF4&ver=4.9.1",self.iid,OPERATOR];
     [[NetworkSingleton sharedManager] getRecommendResule:nil url:urlStr successBlock:^(id responseBody){
         NSLog(@"推荐查询成功");
+        [_recommendArray removeAllObjects];
         NSMutableArray *resultArray = [responseBody objectForKey:@"results"];
         for (int i = 0; i < resultArray.count; i++) {
             RecommendModel *recommendM = [RecommendModel objectWithKeyValues:resultArray[i]];
@@ -196,6 +202,7 @@
             cell = [[VideoInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier];
         }
         [cell setVideoModel:_videoDM];
+        cell.delegate = self;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         //    cell.backgroundColor = [UIColor clearColor];
         //    cell.contentView.backgroundColor = [UIColor clearColor];
@@ -217,6 +224,23 @@
 }
 
 #pragma mark - UITableViewDelegate
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.row>0) {
+        RecommendModel *recommendM = (RecommendModel *)_recommendArray[indexPath.row-1];
+        self.iid = recommendM.itemCode;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self getVideoDetailData];
+            [self getRecommendData];
+        });
+    }
+}
+
+#pragma mark - VideoInfoDelegate
+-(void)didSelectOnInfoView:(NSString *)userId{
+    ChannelViewController *channelVC = [[ChannelViewController alloc] init];
+    channelVC.userId = userId;
+    [self.navigationController pushViewController:channelVC animated:YES];
+}
 
 /*
 #pragma mark - Navigation

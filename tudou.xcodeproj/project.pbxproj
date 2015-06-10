@@ -120,6 +120,10 @@
 		E3D814851B256DB6005689B8 /* namei.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E3D814841B256DB6005689B8 /* namei.jpg */; };
 		E3D814881B25982C005689B8 /* RecommendModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E3D814871B25982C005689B8 /* RecommendModel.m */; };
 		E3D8148B1B259A92005689B8 /* RecommendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E3D8148A1B259A92005689B8 /* RecommendCell.m */; };
+		E3D8148E1B26BA50005689B8 /* ChannelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E3D8148D1B26BA50005689B8 /* ChannelViewController.m */; };
+		E3D814911B26C555005689B8 /* ChannelModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E3D814901B26C555005689B8 /* ChannelModel.m */; };
+		E3D814941B26E65C005689B8 /* ChannelItem.m in Sources */ = {isa = PBXBuildFile; fileRef = E3D814931B26E65C005689B8 /* ChannelItem.m */; };
+		E3D814981B26EB79005689B8 /* ChannelItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E3D814971B26EB79005689B8 /* ChannelItemCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -284,6 +288,14 @@
 		E3D814871B25982C005689B8 /* RecommendModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendModel.m; sourceTree = "<group>"; };
 		E3D814891B259A92005689B8 /* RecommendCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecommendCell.h; sourceTree = "<group>"; };
 		E3D8148A1B259A92005689B8 /* RecommendCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendCell.m; sourceTree = "<group>"; };
+		E3D8148C1B26BA4F005689B8 /* ChannelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelViewController.h; sourceTree = "<group>"; };
+		E3D8148D1B26BA50005689B8 /* ChannelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelViewController.m; sourceTree = "<group>"; };
+		E3D8148F1B26C555005689B8 /* ChannelModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelModel.h; sourceTree = "<group>"; };
+		E3D814901B26C555005689B8 /* ChannelModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelModel.m; sourceTree = "<group>"; };
+		E3D814921B26E65C005689B8 /* ChannelItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelItem.h; sourceTree = "<group>"; };
+		E3D814931B26E65C005689B8 /* ChannelItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelItem.m; sourceTree = "<group>"; };
+		E3D814961B26EB79005689B8 /* ChannelItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelItemCell.h; sourceTree = "<group>"; };
+		E3D814971B26EB79005689B8 /* ChannelItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelItemCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -353,6 +365,10 @@
 				E336D35F1B202EE000FF4F77 /* VideoDetailModel.m */,
 				E3D814861B25982C005689B8 /* RecommendModel.h */,
 				E3D814871B25982C005689B8 /* RecommendModel.m */,
+				E3D8148F1B26C555005689B8 /* ChannelModel.h */,
+				E3D814901B26C555005689B8 /* ChannelModel.m */,
+				E3D814921B26E65C005689B8 /* ChannelItem.h */,
+				E3D814931B26E65C005689B8 /* ChannelItem.m */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -392,6 +408,7 @@
 		E336D31A1B1EE1A100FF4F77 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				E3D814951B26EB61005689B8 /* channel */,
 				E3D814801B254181005689B8 /* video */,
 				E336D3291B1EF63600FF4F77 /* ImageScrollCell.h */,
 				E336D32A1B1EF63600FF4F77 /* ImageScrollCell.m */,
@@ -648,6 +665,8 @@
 				E36238EE1B1E99A200570A4C /* HomeViewController.m */,
 				E336D33A1B1FFD8700FF4F77 /* VideoDetailViewController.h */,
 				E336D33B1B1FFD8700FF4F77 /* VideoDetailViewController.m */,
+				E3D8148C1B26BA4F005689B8 /* ChannelViewController.h */,
+				E3D8148D1B26BA50005689B8 /* ChannelViewController.m */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -780,6 +799,15 @@
 				E3D8148A1B259A92005689B8 /* RecommendCell.m */,
 			);
 			path = video;
+			sourceTree = "<group>";
+		};
+		E3D814951B26EB61005689B8 /* channel */ = {
+			isa = PBXGroup;
+			children = (
+				E3D814961B26EB79005689B8 /* ChannelItemCell.h */,
+				E3D814971B26EB79005689B8 /* ChannelItemCell.m */,
+			);
+			path = channel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -996,14 +1024,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				E3D8145E1B217A1E005689B8 /* SubImageScrollView.m in Sources */,
+				E3D814941B26E65C005689B8 /* ChannelItem.m in Sources */,
 				E336D3391B1FE50700FF4F77 /* HomeVideoBoxCell.m in Sources */,
 				E3D8148B1B259A92005689B8 /* RecommendCell.m in Sources */,
 				E3D814611B217F67005689B8 /* SubscribeCell.m in Sources */,
 				E336D31F1B1EE1BC00FF4F77 /* HomeModel.m in Sources */,
+				E3D814981B26EB79005689B8 /* ChannelItemCell.m in Sources */,
 				E336D3221B1EE27500FF4F77 /* BoxesModel.m in Sources */,
 				E336D3601B202EE000FF4F77 /* VideoDetailModel.m in Sources */,
 				E36238C21B1E930B00570A4C /* ViewController.m in Sources */,
 				E3D814581B217659005689B8 /* SubscribeCardView.m in Sources */,
+				E3D8148E1B26BA50005689B8 /* ChannelViewController.m in Sources */,
 				E336D3251B1EE37C00FF4F77 /* VideosModel.m in Sources */,
 				E3D814881B25982C005689B8 /* RecommendModel.m in Sources */,
 				E336D34F1B2004B900FF4F77 /* JZVideoPlayerView.m in Sources */,
@@ -1013,6 +1044,7 @@
 				E36238BF1B1E930B00570A4C /* AppDelegate.m in Sources */,
 				E336D33C1B1FFD8700FF4F77 /* VideoDetailViewController.m in Sources */,
 				E336D3281B1EE4B400FF4F77 /* BannerModel.m in Sources */,
+				E3D814911B26C555005689B8 /* ChannelModel.m in Sources */,
 				E336D32E1B1EF63600FF4F77 /* ImageScrollView.m in Sources */,
 				E3D814831B25424B005689B8 /* VideoInfoCell.m in Sources */,
 				E336D3311B1EFBCB00FF4F77 /* HomeBoxCell.m in Sources */,

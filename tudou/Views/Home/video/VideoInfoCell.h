@@ -9,8 +9,18 @@
 #import <UIKit/UIKit.h>
 #import "VideoDetailModel.h"
 
+@class VideoInfoCell;
+
+@protocol VideoInfoDelegate <NSObject>
+
+@optional
+-(void)didSelectOnInfoView:(NSString *)userId;
+
+@end
+
 @interface VideoInfoCell : UITableViewCell
 
+@property(nonatomic, strong) id<VideoInfoDelegate> delegate;
 @property(nonatomic, strong) VideoDetailModel *videoModel;
 
 @end

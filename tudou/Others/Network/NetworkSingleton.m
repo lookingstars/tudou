@@ -88,9 +88,53 @@
     }];
 }
 
+#pragma mark 获取频道信息
+-(void)getChannelResule:(NSDictionary *)userInfo url:(NSString *)url successBlock:(SuccessBlock)successBlock failureBlock:(FailureBlock)failureBlock{
+    AFHTTPRequestOperationManager *manager = [self baseHtppRequest];
+    
+    NSString *urlStr = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    [manager GET:urlStr parameters:userInfo success:^(AFHTTPRequestOperation *operation, id responseObject){
+        successBlock(responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error){
+        failureBlock(@"网络连接失败");
+    }];
+}
 
+#pragma mark 获取最新视频信息
+-(void)getNewestVideoResule:(NSDictionary *)userInfo url:(NSString *)url successBlock:(SuccessBlock)successBlock failureBlock:(FailureBlock)failureBlock{
+    AFHTTPRequestOperationManager *manager = [self baseHtppRequest];
+    
+    NSString *urlStr = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    [manager GET:urlStr parameters:userInfo success:^(AFHTTPRequestOperation *operation, id responseObject){
+        successBlock(responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error){
+        failureBlock(@"网络连接失败");
+    }];
+}
 
+#pragma mark 获取最热视频信息
+-(void)getHotestVideoResule:(NSDictionary *)userInfo url:(NSString *)url successBlock:(SuccessBlock)successBlock failureBlock:(FailureBlock)failureBlock{
+    AFHTTPRequestOperationManager *manager = [self baseHtppRequest];
+    
+    NSString *urlStr = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    [manager GET:urlStr parameters:userInfo success:^(AFHTTPRequestOperation *operation, id responseObject){
+        successBlock(responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error){
+        failureBlock(@"网络连接失败");
+    }];
+}
 
+#pragma mark 获取栏目信息
+-(void)getPlaylistResule:(NSDictionary *)userInfo url:(NSString *)url successBlock:(SuccessBlock)successBlock failureBlock:(FailureBlock)failureBlock{
+    AFHTTPRequestOperationManager *manager = [self baseHtppRequest];
+    
+    NSString *urlStr = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    [manager GET:urlStr parameters:userInfo success:^(AFHTTPRequestOperation *operation, id responseObject){
+        successBlock(responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error){
+        failureBlock(@"网络连接失败");
+    }];
+}
 
 
 

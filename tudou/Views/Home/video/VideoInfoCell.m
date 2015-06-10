@@ -49,6 +49,8 @@
     UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, screen_width, 70)];
     [self addSubview:backView];
     //添加点击事件
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(OnTapBackView:)];
+    [backView addGestureRecognizer:tap];
     //
     _picImage = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 40, 40)];
     _picImage.layer.masksToBounds = YES;
@@ -112,6 +114,11 @@
     CGSize contentSize = [videoModel.desc sizeWithFont:[UIFont systemFontOfSize:13] constrainedToSize:CGSizeMake(screen_width-30, 60) lineBreakMode:NSLineBreakByTruncatingTail];
     _titleLabel.text = videoModel.title;
     _descLabel.text = videoModel.desc;
+}
+
+-(void)OnTapBackView:(UITapGestureRecognizer *)sender{
+    NSLog(@"userId:%@",[_videoModel.userid stringValue]);
+    [self.delegate didSelectOnInfoView:[_videoModel.userid stringValue]];
 }
 
 @end

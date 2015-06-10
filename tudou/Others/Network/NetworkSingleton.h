@@ -38,5 +38,18 @@ typedef void(^FailureBlock)(NSString *error);
 #pragma mark 获取推荐信息
 -(void)getRecommendResule:(NSDictionary *)userInfo url:(NSString *)url successBlock:(SuccessBlock)successBlock failureBlock:(FailureBlock)failureBlock;
 
+#pragma mark 获取频道信息
+-(void)getChannelResule:(NSDictionary *)userInfo url:(NSString *)url successBlock:(SuccessBlock)successBlock failureBlock:(FailureBlock)failureBlock;
+
+#pragma mark 获取最新视频信息
+-(void)getNewestVideoResule:(NSDictionary *)userInfo url:(NSString *)url successBlock:(SuccessBlock)successBlock failureBlock:(FailureBlock)failureBlock;
+
+#pragma mark 获取最热视频信息
+-(void)getHotestVideoResule:(NSDictionary *)userInfo url:(NSString *)url successBlock:(SuccessBlock)successBlock failureBlock:(FailureBlock)failureBlock;
+
+#pragma mark 获取栏目信息
+-(void)getPlaylistResule:(NSDictionary *)userInfo url:(NSString *)url successBlock:(SuccessBlock)successBlock failureBlock:(FailureBlock)failureBlock;
+
+
 
 @end
