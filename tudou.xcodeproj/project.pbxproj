@@ -124,6 +124,7 @@
 		E3D814911B26C555005689B8 /* ChannelModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E3D814901B26C555005689B8 /* ChannelModel.m */; };
 		E3D814941B26E65C005689B8 /* ChannelItem.m in Sources */ = {isa = PBXBuildFile; fileRef = E3D814931B26E65C005689B8 /* ChannelItem.m */; };
 		E3D814981B26EB79005689B8 /* ChannelItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E3D814971B26EB79005689B8 /* ChannelItemCell.m */; };
+		E3D8149B1B292FF7005689B8 /* DisResultModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E3D8149A1B292FF7005689B8 /* DisResultModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -296,6 +297,8 @@
 		E3D814931B26E65C005689B8 /* ChannelItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelItem.m; sourceTree = "<group>"; };
 		E3D814961B26EB79005689B8 /* ChannelItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelItemCell.h; sourceTree = "<group>"; };
 		E3D814971B26EB79005689B8 /* ChannelItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelItemCell.m; sourceTree = "<group>"; };
+		E3D814991B292FF7005689B8 /* DisResultModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DisResultModel.h; sourceTree = "<group>"; };
+		E3D8149A1B292FF7005689B8 /* DisResultModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DisResultModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -346,6 +349,8 @@
 		E336D3141B1EE19400FF4F77 /* Discover */ = {
 			isa = PBXGroup;
 			children = (
+				E3D814991B292FF7005689B8 /* DisResultModel.h */,
+				E3D8149A1B292FF7005689B8 /* DisResultModel.m */,
 			);
 			path = Discover;
 			sourceTree = "<group>";
@@ -1045,6 +1050,7 @@
 				E336D33C1B1FFD8700FF4F77 /* VideoDetailViewController.m in Sources */,
 				E336D3281B1EE4B400FF4F77 /* BannerModel.m in Sources */,
 				E3D814911B26C555005689B8 /* ChannelModel.m in Sources */,
+				E3D8149B1B292FF7005689B8 /* DisResultModel.m in Sources */,
 				E336D32E1B1EF63600FF4F77 /* ImageScrollView.m in Sources */,
 				E3D814831B25424B005689B8 /* VideoInfoCell.m in Sources */,
 				E336D3311B1EFBCB00FF4F77 /* HomeBoxCell.m in Sources */,

@@ -15,5 +15,6 @@
 @property(nonatomic, strong) NSArray *imageArr;
 
 -(void)setImageArray:(NSArray *)imageArray;
+-(id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier frame:(CGRect)frame;
 
 @end

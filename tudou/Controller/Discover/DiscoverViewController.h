@@ -10,4 +10,6 @@
 
 @interface DiscoverViewController : UIViewController
 
+@property(nonatomic, strong) UITableView *tableView;
+
 @end

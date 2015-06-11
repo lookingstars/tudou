@@ -72,6 +72,7 @@
     UIButton *historyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     historyBtn.frame = CGRectMake(screen_width-60, 30, 22, 22);
     [historyBtn setImage:[UIImage imageNamed:@"home_history"] forState:UIControlStateNormal];
+    [historyBtn addTarget:self action:@selector(OnHisBtn:) forControlEvents:UIControlEventTouchUpInside];
     [backView addSubview:historyBtn];
     //
     UIButton *uploadBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -134,6 +135,10 @@
     [self getHomeData];
 }
 
+-(void)OnHisBtn:(UIButton *)sender{
+    [self getHistoryData];
+}
+
 
 - (NSString *)md5:(NSString *)str{
     const char *cStr = [str UTF8String];
@@ -182,6 +187,16 @@
     } failureBlock:^(NSString *error){
         [self performSelectorOnMainThread:@selector(reloadTable) withObject:nil waitUntilDone:YES];
         NSLog(@"%@",error);
+    }];
+}
+
+-(void)getHistoryData{
+    //http://user.api.3g.tudou.com/user/viewrecord/get?guid=7066707c5bdc38af1621eaf94a6fe779&idfa=ACAF9226-F987-417B-A708-C95D482A732D&isAlbum=0&isPay=0&network=WIFI&operator=%E4%B8%AD%E5%9B%BD%E8%81%94%E9%80%9A_46001&ouid=10099212c9e3829656d4ea61e3858d53253b2f07&pageNo=1&pageSize=30&pid=c0637223f8b69b02&vdid=9AFEE982-6F94-4F57-9B33-69523E044CF4&ver=4.9.1
+    NSString *urlStr = @"http://user.api.3g.tudou.com/user/viewrecord/get?guid=7066707c5bdc38af1621eaf94a6fe779&idfa=ACAF9226-F987-417B-A708-C95D482A732D&isAlbum=0&isPay=0&network=WIFI&operator=%E4%B8%AD%E5%9B%BD%E8%81%94%E9%80%9A_46001&ouid=10099212c9e3829656d4ea61e3858d53253b2f07&pageNo=1&pageSize=30&pid=c0637223f8b69b02&vdid=9AFEE982-6F94-4F57-9B33-69523E044CF4&ver=4.9.1";
+    [[NetworkSingleton sharedManager] getHistoryResult:nil url:urlStr successBlock:^(id responseBody){
+        NSLog(@"查询历史记录成功");
+    } failureBlock:^(NSString *error){
+        NSLog(@"查询历史记录失败：%@",error);
     }];
 }
 

@@ -50,6 +50,12 @@ typedef void(^FailureBlock)(NSString *error);
 #pragma mark 获取栏目信息
 -(void)getPlaylistResule:(NSDictionary *)userInfo url:(NSString *)url successBlock:(SuccessBlock)successBlock failureBlock:(FailureBlock)failureBlock;
 
+#pragma mark 获取历史记录信息
+-(void)getHistoryResult:(NSDictionary *)userInfo url:(NSString *)url successBlock:(SuccessBlock)successBlock failureBlock:(FailureBlock)failureBlock;
+
+#pragma mark 获取发现信息
+-(void)getDiscoverResult:(NSDictionary *)userInfo url:(NSString *)url successBlock:(SuccessBlock)successBlock failureBlock:(FailureBlock)failureBlock;
+
 
 
 @end

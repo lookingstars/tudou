@@ -12,6 +12,7 @@
 @interface ImageScrollView ()<UIScrollViewDelegate>
 {
     NSTimer *_timer;
+    int _pageNumber;
 }
 
 @end
@@ -64,6 +65,7 @@
 //    return self;
 //}
 -(void)setImageArray:(NSArray *)imageArray{
+    _pageNumber = (int)imageArray.count;
     self.scrollView.contentSize = CGSizeMake(imageArray.count*screen_width, self.frame.size.height);
     self.pageControl.numberOfPages = imageArray.count;
     //添加图片
@@ -81,7 +83,7 @@
 
 -(void)OnTapImage:(UITapGestureRecognizer *)sender{
     UIImageView *imageView = (UIImageView *)sender.view;
-    int tag = imageView.tag-10;
+    int tag = (int)imageView.tag-10;
     [self.delegate didSelectImageAtIndex:tag];
 }
 
@@ -95,8 +97,8 @@
 }
 
 -(void)netxPage{
-    int page = self.pageControl.currentPage;
-    if (page == 3) {
+    int page = (int)self.pageControl.currentPage;
+    if (page == _pageNumber-1) {
         page = 0;
     }else{
         page++;

@@ -136,6 +136,33 @@
     }];
 }
 
+//http://user.api.3g.tudou.com/user/viewrecord/get?guid=7066707c5bdc38af1621eaf94a6fe779&idfa=ACAF9226-F987-417B-A708-C95D482A732D&isAlbum=0&isPay=0&network=WIFI&operator=%E4%B8%AD%E5%9B%BD%E8%81%94%E9%80%9A_46001&ouid=10099212c9e3829656d4ea61e3858d53253b2f07&pageNo=1&pageSize=30&pid=c0637223f8b69b02&vdid=9AFEE982-6F94-4F57-9B33-69523E044CF4&ver=4.9.1
+#pragma mark 获取历史记录信息
+-(void)getHistoryResult:(NSDictionary *)userInfo url:(NSString *)url successBlock:(SuccessBlock)successBlock failureBlock:(FailureBlock)failureBlock{
+    AFHTTPRequestOperationManager *manager = [self baseHtppRequest];
+    
+    NSString *urlStr = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    [manager GET:urlStr parameters:userInfo success:^(AFHTTPRequestOperation *operation, id responseObject){
+        successBlock(responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error){
+        NSString *errorStr = [error.userInfo objectForKey:@"NSLocalizedDescription"];
+        failureBlock(errorStr);
+    }];
+}
+
+#pragma mark 获取发现信息
+-(void)getDiscoverResult:(NSDictionary *)userInfo url:(NSString *)url successBlock:(SuccessBlock)successBlock failureBlock:(FailureBlock)failureBlock{
+    AFHTTPRequestOperationManager *manager = [self baseHtppRequest];
+    
+    NSString *urlStr = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    [manager GET:urlStr parameters:userInfo success:^(AFHTTPRequestOperation *operation, id responseObject){
+        successBlock(responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error){
+        NSString *errorStr = [error.userInfo objectForKey:@"NSLocalizedDescription"];
+        failureBlock(errorStr);
+    }];
+}
+
 
 
 
