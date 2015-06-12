@@ -157,6 +157,7 @@
 		E3D814DB1B2A7B7C005689B8 /* ic_discover_search@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E3D814D91B2A7B7C005689B8 /* ic_discover_search@2x.png */; };
 		E3D814DE1B2A7C16005689B8 /* ic_discover_QR-code.png in Resources */ = {isa = PBXBuildFile; fileRef = E3D814DC1B2A7C16005689B8 /* ic_discover_QR-code.png */; };
 		E3D814DF1B2A7C16005689B8 /* ic_discover_QR-code@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E3D814DD1B2A7C16005689B8 /* ic_discover_QR-code@2x.png */; };
+		E3D814E21B2AAF9B005689B8 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = E3D814E11B2AAF9B005689B8 /* Reachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -363,6 +364,8 @@
 		E3D814D91B2A7B7C005689B8 /* ic_discover_search@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_discover_search@2x.png"; sourceTree = "<group>"; };
 		E3D814DC1B2A7C16005689B8 /* ic_discover_QR-code.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_discover_QR-code.png"; sourceTree = "<group>"; };
 		E3D814DD1B2A7C16005689B8 /* ic_discover_QR-code@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_discover_QR-code@2x.png"; sourceTree = "<group>"; };
+		E3D814E01B2AAF9B005689B8 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		E3D814E11B2AAF9B005689B8 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -664,6 +667,8 @@
 		E36238E41B1E958600570A4C /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				E3D814E01B2AAF9B005689B8 /* Reachability.h */,
+				E3D814E11B2AAF9B005689B8 /* Reachability.m */,
 				E336D3101B1ED50B00FF4F77 /* NetworkSingleton.h */,
 				E336D3111B1ED50B00FF4F77 /* NetworkSingleton.m */,
 			);
@@ -1190,6 +1195,7 @@
 				E336D3121B1ED50B00FF4F77 /* NetworkSingleton.m in Sources */,
 				E36238EF1B1E99A200570A4C /* HomeViewController.m in Sources */,
 				E36238F51B1E99E500570A4C /* SubscribeViewController.m in Sources */,
+				E3D814E21B2AAF9B005689B8 /* Reachability.m in Sources */,
 				E36238FB1B1E9A0200570A4C /* MineViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

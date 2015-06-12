@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "AFNetworking.h"
+#import "Reachability.h"
 
 
 //请求超时
@@ -22,6 +23,8 @@ typedef void(^FailureBlock)(NSString *error);
 
 +(NetworkSingleton *)sharedManager;
 -(AFHTTPRequestOperationManager *)baseHtppRequest;
+
+- (BOOL)isConnectionAvailable;
 
 #pragma mark 获取土豆视频首页
 -(void)getHomeResule:(NSDictionary *)userInfo url:(NSString *)url successBlock:(SuccessBlock)successBlock failureBlock:(FailureBlock)failureBlock;
