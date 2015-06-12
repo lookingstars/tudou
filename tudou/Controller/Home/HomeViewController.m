@@ -290,7 +290,7 @@
 
 #pragma mark - ImageScrollViewDelegate
 -(void)didSelectImageAtIndex:(NSInteger)index{
-    
+    NSLog(@"index:%ld",index);
 }
 
 #pragma mark - HomeBoxDelegate

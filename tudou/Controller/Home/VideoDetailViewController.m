@@ -123,7 +123,9 @@
         NSLog(@"视频详情查询成功");
         VideoDetailModel *videoDM = [VideoDetailModel objectWithKeyValues:[responseBody objectForKey:@"detail"]];
         _videoDM = videoDM;
-        NSString *urlStr = [NSString stringWithFormat:@"%@%@",VIDEO_URL,_videoDM.iid];
+//        NSString *urlStr = [NSString stringWithFormat:@"%@%@",VIDEO_URL,_videoDM.iid];
+        NSString *urlStr = [NSString stringWithFormat:@"%@%@",VIDEO_URL,self.iid];
+        NSLog(@"视频链接：%@",urlStr);
         [_webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:urlStr]]];
         [_infoTableView reloadData];
     } failureBlock:^(NSString *error){

@@ -13,11 +13,15 @@
 #import "MJRefresh.h"
 
 #import "ImageScrollCell.h"
+#import "UIImageView+WebCache.h"
+#import "VideoDetailViewController.h"
 
-@interface DiscoverViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface DiscoverViewController ()<UITableViewDataSource,UITableViewDelegate,ImageScrollViewDelegate>
 {
     NSMutableArray *_dataSource;
     NSMutableArray *_imageArray;
+    
+    UILabel *_searchLabel;
 }
 
 @end
@@ -49,16 +53,26 @@
     backView.backgroundColor = navigationBarColor;
     [self.view addSubview:backView];
     //
-    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(screen_width/2-60, 30, 120, 30)];
-    //    titleLabel.font = [UIFont systemFontOfSize:14];
-    titleLabel.text = @"发现";
-    titleLabel.textAlignment = NSTextAlignmentCenter;
-    titleLabel.textColor = [UIColor whiteColor];
-    [backView addSubview:titleLabel];
+    UIView *searchBgView = [[UIView alloc] initWithFrame:CGRectMake(10, 25, screen_width-10-10-30, 30)];
+    searchBgView.backgroundColor = [UIColor whiteColor];
+    searchBgView.layer.cornerRadius = 3;
+    [self.view addSubview:searchBgView];
     //
+    UIImageView *searchImg = [[UIImageView alloc] initWithFrame:CGRectMake(6, 6, 17, 17)];
+    searchImg.image = [UIImage imageNamed:@"ic_discover_search"];
+    [searchBgView addSubview:searchImg];
+    //
+    _searchLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, 0, searchBgView.frame.size.width-30, 30)];
+    _searchLabel.textColor = [UIColor lightGrayColor];
+    _searchLabel.text = @"大家都在搜:海贼王";
+    _searchLabel.font = [UIFont systemFontOfSize:15];
+    [searchBgView addSubview:_searchLabel];
+    
+    
+    //二维码
     UIButton *uploadBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     uploadBtn.frame = CGRectMake(screen_width-30, 30, 22, 22);
-    [uploadBtn setImage:[UIImage imageNamed:@"home_upload"] forState:UIControlStateNormal];
+    [uploadBtn setImage:[UIImage imageNamed:@"ic_discover_QR-code"] forState:UIControlStateNormal];
 //    [uploadBtn addTarget:self action:@selector(OnUploadBtn:) forControlEvents:UIControlEventTouchUpInside];
     [backView addSubview:uploadBtn];
 }
@@ -67,6 +81,7 @@
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, screen_width, screen_height-64-49) style:UITableViewStylePlain];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.tableView];
     
     [self setupRefresh];
@@ -99,6 +114,11 @@
     NSString *urlStr = @"http://discover.api.3g.tudou.com/v4_7/rec_discover?guid=7066707c5bdc38af1621eaf94a6fe779&idfa=ACAF9226-F987-417B-A708-C95D482A732D&network=WIFI&operator=%E4%B8%AD%E5%9B%BD%E8%81%94%E9%80%9A_46001&ouid=10099212c9e3829656d4ea61e3858d53253b2f07&pg=1&pid=c0637223f8b69b02&pz=30&vdid=9AFEE982-6F94-4F57-9B33-69523E044CF4&ver=4.9.1";
     [[NetworkSingleton sharedManager] getDiscoverResult:nil url:urlStr successBlock:^(id responseBody){
         NSLog(@"发现查询成功");
+        
+        NSString *hotWord = [responseBody objectForKey:@"search_hot_word"];
+        NSString *WordAd = [responseBody objectForKey:@"search_word_ad"];
+        _searchLabel.text = [NSString stringWithFormat:@"%@:%@",WordAd,hotWord];
+        
         [_dataSource removeAllObjects];
         NSMutableArray *resultArray = [responseBody objectForKey:@"results"];
         for (int i = 0; i < resultArray.count; i++) {
@@ -147,15 +167,22 @@
         }
         [cell setImageArray:_imageArray];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        cell.imageScrollView.delegate = self;
         return cell;
     }else{
         static NSString *cellIndentifier = @"discoverCell1";
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIndentifier];
         if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier];
+            //
+            UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 39.5, screen_width, 0.5)];
+            lineView.backgroundColor = separaterColor;
+            [cell.contentView addSubview:lineView];
         }
         DisResultModel *disM = (DisResultModel *)_dataSource[indexPath.row];
         cell.textLabel.text = disM.title;
+        [cell.imageView sd_setImageWithURL:[NSURL URLWithString:disM.module_icon] placeholderImage:[UIImage imageNamed:@"home_GaoXiao"]];
         
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -165,6 +192,19 @@
 }
 
 #pragma mark - UITableViewDelegate
+
+#pragma mark - ImageScrollViewDelegate
+-(void)didSelectImageAtIndex:(NSInteger)index{
+    NSLog(@"index:%ld",index);
+    DisResultModel *disM = (DisResultModel *)_dataSource[0];
+    NSString *code = [disM.items[index] objectForKey:@"video_id"];
+    
+    VideoDetailViewController *videoVC = [[VideoDetailViewController alloc] init];
+    videoVC.iid = code;
+    [self.navigationController pushViewController:videoVC animated:YES];
+    
+    
+}
 
 
 
